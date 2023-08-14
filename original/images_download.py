@@ -5,6 +5,11 @@ from time import time
 URL = 'https://loremflickr.com/320/240'
 
 
+"""
+sync example of 100 files download
+"""
+
+
 def get_file(url):
     r = requests.get(url, allow_redirects=True)
     return r
@@ -25,13 +30,18 @@ def main():
     print(time() - start)
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
 
 
-#####################
-#####################
+######################
+######################
+######################
 
+
+"""
+async example of 100 files download
+"""
 
 import asyncio
 import aiohttp
@@ -50,12 +60,11 @@ async def fetch_content(url, session):
 
 
 async def main2():
-    url = 'https://loremflickr.com/320/240'
     tasks = []
 
     async with aiohttp.ClientSession() as session:
-        for i in range(10):
-            task = asyncio.create_task(fetch_content(url, session))
+        for i in range(100):
+            task = asyncio.create_task(fetch_content(URL, session))
             tasks.append(task)
 
         await asyncio.gather(*tasks)
